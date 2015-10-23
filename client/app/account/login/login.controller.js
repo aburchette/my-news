@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mynewsApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location, geolocation) {
+  .controller('LoginCtrl', function ($scope, Auth, $location, geolocation, stories) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -16,6 +16,8 @@ angular.module('mynewsApp')
         .then( function() {
 
           var user = Auth.getCurrentUser();
+
+          stories.removeStories();
 
           console.log(user);
           geolocation.geo.lat = user.lat;

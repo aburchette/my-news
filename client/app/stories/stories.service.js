@@ -16,8 +16,13 @@ angular.module('mynewsApp')
       });
     }
 
+    function removeStories(){
+      storiesList = [];
+    }
+
     return {
       getStories: getStories,
-      setStories: setStories
+      setStories: setStories,
+      removeStories: removeStories
     }
   });

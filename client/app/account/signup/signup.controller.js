@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('mynewsApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location, geolocation) {
+  .controller('SignupCtrl', function ($scope, Auth, $location, geolocation, stories) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -22,6 +22,12 @@ angular.module('mynewsApp')
             lon: location.lng
           })
           .then( function() {
+
+            stories.removeStories();
+
+            geolocation.geo.lat = location.lat;
+            geolocation.geo.lon = location.lng;
+
             // Account created, redirect to home
             $location.path('/my-news');
           })

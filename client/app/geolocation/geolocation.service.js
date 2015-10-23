@@ -28,6 +28,7 @@ angular.module('mynewsApp')
     function distance(lon1, lat1, lon2, lat2) {
       lon2 = +user.lon || geo.lon || lon2;
       lat2 = +user.lat || geo.lat || lat2;
+
       var R = 6371; // Radius of the earth in km
       var dLat = (lat2-lat1).toRad();  // Javascript functions in radians
       var dLon = (lon2-lon1).toRad();

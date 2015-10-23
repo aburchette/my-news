@@ -37,9 +37,6 @@ angular.module('mynewsApp')
     //   socket.unsyncUpdates('thing');
     // });
 
-
-  "use strict";
-
   function getPosition() {
       // Quick result  for testing purposes
       return Promise.resolve({ lat: lat, long: lon });
@@ -74,8 +71,8 @@ angular.module('mynewsApp')
 
     var data = {
       latitude: options.lat,
-      longitude: options.lon,
-      radius: options.radius
+      longitude: options.long,
+      radius: options.rad
     };
 
     var xhr = $.ajax(eventsBaseUrl + apiUrl, { method: "GET", dataType: "json", data: data });
@@ -83,21 +80,21 @@ angular.module('mynewsApp')
     return Promise.resolve(xhr).then(function(json) {
         var events = [];
         $.each(json.items, function(k, item) {
-              events.push({
-                  title: '',
-                  text: '',
-                  type: 'event',
-                  headline: item.venue_name ? item.title + " at " + item.venue_name : item.title,
-                  summary: item.description,
-                  url: eventsBaseUrl + "event/" + item.guid,
-                  photo: eventImageUrl(item.id, 53, 93),
-                  comment: "Event",
-                  geo: {
-                        address: item.venue_address,
-                        latitude: +item.latitude,
-                        longitude: +item.longitude
-                  }
-              });
+            var headline = item.venue_name ? item.title + " at " + item.venue_name : item.title;
+            events.push({
+                title: headline,
+                text: item.description,
+                headline: headline,
+                summary: item.description,
+                url: eventsBaseUrl + "event/" + item.guid,
+                photo: eventImageUrl(item.image_id, -1, 500),
+                type: "event",
+                geo: {
+                      address: item.venue_address,
+                      latitude: +item.latitude,
+                      longitude: +item.longitude
+                }
+            });
           });
           cachedEvents = events;
           return events;
@@ -327,6 +324,7 @@ angular.module('mynewsApp')
 
   getPosition().then(function(pos) {
       pos.radius = 1;
+      pos.rad = 70; // radius in miles, for events search
       pos.zoom = 12;
       StoryMap.create($("#map")[0], pos).then(function(map) {
           pollStories(map, pos, 5000);

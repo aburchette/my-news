@@ -19,26 +19,28 @@
 .container .span12 {
   margin: 0;
 }
-.cm-channel-root {
+div.cm-channel-root .cm-header-banner {
   padding: 0 !important;
   margin-bottom: 10px;
   h1 {
     position: absolute;
     top: 50%;
+    width: auto;
     transform: translateY(-50%) translateX(-50%);
     -ms-transform: translateY(-50%) translateX(-50%);
     -webkit-transform: translateY(-50%) translateX(-50%);
     margin: 0;
     left: 50%;
-    padding-left: 35px;
+    padding-left: 0.7em;
     .headerIcon{
-      background: url('/assets/images/red_pin_header.png') no-repeat top left transparent;
-      width: 1em;
-      height: 40px;
+      width: 0.5em;
       display: block;
       position: absolute;
       left: 0;
-      top: 7px;
+      top: -2px;
+      img {
+        width: 100%;
+      }
     }
   }
 }
